@@ -1,21 +1,25 @@
 package yemenshi.gsp.todo_list.domain.common;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import yemenshi.gsp.todo_list.domain.common.DTO.MemberDTO;
 
 @Entity
-@Getter @Setter
 public class Member {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(unique = true)
+  @Column(unique = true, name = "member_email")
   private String memberEmail;
 
-  @Column
+  @Column(name = "member_name")
   private String memberName;
 
+  public Member(MemberDTO dto) {
+    this.memberEmail = dto.getMemberEmail();
+    this.memberName = dto.getMemberName();
+  }
+
+  public Member() {}
 }

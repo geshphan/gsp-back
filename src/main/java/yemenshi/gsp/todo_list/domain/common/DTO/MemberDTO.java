@@ -5,15 +5,14 @@ import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
 public class MemberDTO {
 
   private Long id;
 
-  @Column(name = "member_email")
   private String memberEmail;
 
-  @Column(name = "member_name")
+
   private String memberName;
 }
 
