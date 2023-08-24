@@ -1,0 +1,34 @@
+server:
+  port: 443
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: ENC(mKD98tZhlhzAD1fOy/Wwf6ysGczrO3Nl)
+    key-store-type: PKCS12
+    key-alias: geshphan-ssl
+
+spring:
+  datasource:
+    url: jdbc:mysql://49.143.180.112:3306/gsp?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ENC(x+tttbY4gL7eZV5d9ujIuw==)
+    password: ENC(s1bQYp7/HdHK9g/Cp06T6w==)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform:
+    hibernate:
+      ddl-auto: create
+
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+
+logging:
+  level:
+    org.hibernate:
+      type: trace
+      sql: debug
