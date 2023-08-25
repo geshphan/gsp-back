@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yemenshi.gsp.todo_list.domain.member.entity.Member;
-import yemenshi.gsp.todo_list.domain.member.service.MemberService;
+import yemenshi.gsp.todo_list.domain.member.entity.MemberDto;
+import yemenshi.gsp.todo_list.domain.member.service.MemberServiceImpl;
 
 @RestController
 @RequestMapping("/api/member")
@@ -20,14 +21,14 @@ import yemenshi.gsp.todo_list.domain.member.service.MemberService;
 @Slf4j
 public class MemberController {
 
-    private final MemberService memberService;
+    private final MemberServiceImpl memberService;
 
-    @PostMapping("/login")
-    public ResponseEntity<Object> login(HttpServletRequest req, @RequestBody String loginId) {
+    @PostMapping(value = "/login", consumes = "application/json")
+    public ResponseEntity<Object> login(HttpServletRequest req, @RequestBody MemberDto memberDto) {
         HttpSession session = req.getSession();
 
         try {
-            Member user = memberService.login(loginId);
+            Member user = memberService.login(memberDto);
             session.setAttribute("user", user);
 
         } catch (NonUniqueResultException e) {

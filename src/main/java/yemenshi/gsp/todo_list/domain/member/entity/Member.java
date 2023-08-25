@@ -15,6 +15,11 @@ public class Member {
 
     protected Member() {}
 
+    public Member(MemberDto memberDto) {
+        this.id = memberDto.getId();
+        this.loginId = memberDto.getLoginId();
+    }
+
     public Member(String loginId) {
         this.loginId = loginId;
     }
