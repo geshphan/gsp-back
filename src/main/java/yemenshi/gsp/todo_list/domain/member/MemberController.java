@@ -15,6 +15,8 @@ import yemenshi.gsp.todo_list.domain.member.entity.Member;
 import yemenshi.gsp.todo_list.domain.member.entity.MemberDto;
 import yemenshi.gsp.todo_list.domain.member.service.MemberServiceImpl;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api/member")
 @RequiredArgsConstructor
@@ -32,9 +34,18 @@ public class MemberController {
             session.setAttribute("user", user);
 
         } catch (NonUniqueResultException e) {
-            return new ResponseEntity<>("An error occurred while searching user", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("An error occurred while searching user.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return new ResponseEntity<>("Request has been proceeded successfully", HttpStatus.OK);
+        session.setAttribute("accessTimeMillis", LocalDateTime.now());
+
+        return new ResponseEntity<>("Request has been proceeded successfully.", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/logout", consumes = "application/json")
+    public ResponseEntity<Object> logout(HttpServletRequest req) {
+        req.getSession().invalidate();
+
+        return new ResponseEntity<>("Logged out successfully.", HttpStatus.OK);
     }
 }
